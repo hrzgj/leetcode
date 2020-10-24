@@ -29,4 +29,13 @@ public class Solution {
         }
         return true;
     }
+
+    public static void main(String[] args) {
+        int x1=1290,x2=1290;
+        Integer x=129;
+        Integer y=129;
+        System.out.println(x1==x2);
+        System.out.println(x==y);
+        System.out.println(x.equals(y));
+    }
 }
