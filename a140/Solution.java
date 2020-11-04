@@ -1,5 +1,6 @@
 package a140;
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -20,7 +21,7 @@ public class Solution {
             return map.get(start);
         }
         if(start>=s.length()){
-            return new LinkedList<String>(){{add("");}};
+            return new LinkedList<String>(){{add("2");}};
         }
         List<String> result=new LinkedList<>();
         for(int i=start+1;i<=s.length();i++){
@@ -28,7 +29,7 @@ public class Solution {
             if(hashSet.contains(temp)){
                 List<String> list=dfs(i,s);
                 for(String a:list){
-                    result.add("".equals(a)?temp:temp+" "+a);
+                    result.add("2".equals(a)?temp:temp+" "+a);
                 }
             }
         }
@@ -36,4 +37,11 @@ public class Solution {
         return result;
     }
 
+    public static void main(String[] args) {
+        List<String> list=new LinkedList<String>(){{add("");}};
+        System.out.println(list.size());
+        for(String s:list){
+            System.out.println(s);
+        }
+    }
 }
