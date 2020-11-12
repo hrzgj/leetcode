@@ -16,20 +16,24 @@ public class Solution {
         if(head==null||head.next==null){
             return head;
         }
-        ListNode listNode=new ListNode();
-        listNode.next=head;
-        ListNode pre=head,tail=pre.next,node=tail.next;
-        while (node.next!=null){
-            listNode.next=tail;
-            pre.next=tail.next;
-            tail.next=pre;
-            
-            listNode=tail;
-            pre=pre.next;
-            tail=pre.next;
-            node=tail.next;
+        ListNode node=new ListNode();
+        node.next=head;
+        ListNode one=node,two=node.next,three=two.next;
+        while (true){
+            one.next=three;
+            two.next=three.next;
+            three.next=two;
+            if(two.next==null){
+                break;
+            }
+            one=two;
+            two=one.next;
+            three=two.next;
+            if(three==null){
+                break;
+            }
         }
-        return head;
+        return node.next;
     }
 }
 
