@@ -15,7 +15,7 @@ public class Solution {
                 break;
             }
             leftIndex=i;
-            left[i]=left[i-1]-nums[i-1];
+            left[i]=left[i-1]-nums[i-1  ];
         }
         int rightIndex=0;
         int[] right=new int[length+1];
@@ -44,6 +44,7 @@ public class Solution {
                 }
             }
         }
+
         return result==Integer.MAX_VALUE?-1:result;
 
     }
