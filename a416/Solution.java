@@ -1,5 +1,7 @@
 package a416;
 
+import java.util.Arrays;
+
 /**
  * @author: chenyu
  * @date: 2020/9/12 16:08
@@ -62,5 +64,28 @@ public class Solution {
             }
         }
         return dp[target];
+    }
+
+    public boolean canPartition3(int[] nums) {
+        int sum=0;
+        for(int num:nums){
+            sum+=num;
+        }
+        if(sum%2!=0){
+            return false;
+        }
+        boolean[] dp=new boolean[sum/2+1];
+        dp[0]=true;
+        for(int i=1;i<nums.length;i++){
+            for(int j=sum/2;j>=0;j--){
+                if(j-nums[i]<0){
+                    dp[j]=dp[j];
+                }else {
+                    dp[j]=dp[j]|dp[j-nums[i]];
+                }
+            }
+        }
+        return dp[sum/2];
+
     }
 }
