@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @date: 2020/10/18 9:36
  */
 public class Solution {
-    public int leastInterval(char[] tasks, int n) {
+    public int leastInterval2(char[] tasks, int n) {
         int[] nums=new int[26];
         for(char c:tasks){
             nums[c-'A']++;
@@ -27,5 +27,20 @@ public class Solution {
             Arrays.sort(nums);
         }
         return result;
+    }
+    public int leastInterval(char[] tasks, int n) {
+        int[] cnt = new int[26];
+        int max=0;
+        for (char c : tasks) {
+            cnt[c - 'A']++;
+            max = Math.max(max, cnt[c - 'A']);
+        }
+        int ret = (max - 1) * (n + 1);
+        for (int i = 0; i < 26&& cnt[i]>0; i++) {
+            if (cnt[i] == max) {
+                ret++;
+            }
+        }
+        return Math.max(ret, tasks.length);
     }
 }
