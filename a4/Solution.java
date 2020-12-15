@@ -12,9 +12,9 @@ public class Solution {
         int n=nums2.length;
         int length=m+n;
         if(length%2==1) {
-            return getKthElement(nums1,nums2,length>>>1)*1.0;
+            return getKthElement(nums1,nums2,length/2+1)*1.0;
         }else {
-            return (getKthElement(nums1,nums2,length>>>1+1)+getKthElement(nums1,nums2,length>>>1))*0.5;
+            return (getKthElement(nums1,nums2,length/2+1)+getKthElement(nums1,nums2,length/2))*0.5;
         }
 
 

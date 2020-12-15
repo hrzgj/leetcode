@@ -1,5 +1,7 @@
 package a738;
 
+import java.util.ArrayList;
+
 /**
  * @author: chenyu
  * @date: 2020/12/15 9:36
@@ -15,7 +17,6 @@ public class Solution {
             res+=n;
         }
         return res;
-
     }
 
     public static void main(String[] args) {
