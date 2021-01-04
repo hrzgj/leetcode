@@ -1,15 +1,13 @@
 package a739;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author: chenyu
  * @date: 2020/6/11 8:30
  */
 public class Solution {
-    public int[] dailyTemperatures(int[] T) {
+    public int[] dailyTemperatures2(int[] T) {
         Stack<Integer> find=new Stack<>();
         int[] result=new int[T.length];
         find.push(0);
@@ -27,5 +25,18 @@ public class Solution {
             }
         }
         return result;
+    }
+
+    public int[] dailyTemperatures(int[] T) {
+        int[] res=new int[T.length];
+        LinkedList<Integer> linkedList=new LinkedList<>();
+        for(int i=0;i<T.length;i++){
+            while (!linkedList.isEmpty()&&T[i]>T[linkedList.peek()]) {
+                Integer j = linkedList.pop();
+                res[j] = i - j;
+            }
+            linkedList.push(i);
+        }
+        return res;
     }
 }

@@ -27,7 +27,7 @@ public class Solution {
             return;
         }
         for(int i=0;i<nums.length;i++){
-            if(use[i]||(nums[i-1]==nums[i]&&use[i-1]&&i>0)){
+            if(use[i]||(i>0&&nums[i-1]==nums[i]&&!use[i-1])){
                 continue;
             }
             list.add(nums[i]);
@@ -37,5 +37,10 @@ public class Solution {
             list.remove(list.size()-1);
         }
 
+    }
+
+    public static void main(String[] args) {
+        Solution solution=new Solution();
+        solution.permuteUnique(new int[]{1,1,2});
     }
 }
