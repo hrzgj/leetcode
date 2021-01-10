@@ -1,8 +1,10 @@
-package a154;
+package a153;
 
 /**
  * @author: chenyu
- * @date: 2020/7/22 9:26
+ * @date: 2021/1/10 11:59
+ * [3,4,5,1,2]
+ * [4,5,6,7,0,1,2]
  */
 public class Solution {
     public int findMin(int[] nums) {
@@ -14,11 +16,8 @@ public class Solution {
             }else if(nums[mid]<nums[right]){
                 right=mid;
             }else if(nums[mid]==nums[right]){
-                right--;
+                break;
             }
-        }
-        if(right==-1){
-            return nums[0];
         }
         return nums[right];
     }

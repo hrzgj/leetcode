@@ -1,6 +1,7 @@
 package offer26;
 
 
+import javax.print.attribute.standard.NumberUp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ class TreeNode {
 public class Solution {
 
     List<TreeNode> list=new LinkedList<>();
-    public boolean isSubStructure(TreeNode A, TreeNode B) {
+    public boolean isSubStructure2(TreeNode A, TreeNode B) {
         if(B==null){
             return false;
         }
@@ -61,6 +62,25 @@ public class Solution {
         }
         return false;
     }
+
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        return A!=null&&B!=null&&(finds(A,B)||isSubStructure(A.left,B)||isSubStructure(A.right,B));
+    }
+
+    private boolean finds(TreeNode a,TreeNode b){
+        if(b==null){
+            return true;
+        }
+        if(a==null){
+            return false;
+        }
+        if(a.val!=b.val){
+            return false;
+        }
+        return finds(a.left,b.left)&&finds(a.right,b.right);
+    }
+
+
 
 
 }
