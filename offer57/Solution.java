@@ -30,4 +30,22 @@ public class Solution {
         }
         return vec.toArray(new int[vec.size()][]);
     }
+
+    public int[] twoSum(int[] nums, int target) {
+        for(int i=0;i<nums.length;i++){
+            int num=target-nums[i];
+            int left=i+1,right=nums.length-1;
+            while (left<=right){
+                int mid=left+(right-left)/2;
+                if(nums[mid]>num){
+                    right=mid-1;
+                }else if(nums[mid]<num){
+                    left=mid+1;
+                }else {
+                    return new int[]{nums[i],nums[mid]};
+                }
+            }
+        }
+        return new int[0];
+    }
 }
