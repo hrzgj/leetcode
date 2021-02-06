@@ -32,7 +32,8 @@ public class Solution {
     public int pathSum(TreeNode root, int sum) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         map.put(0, 1);
-        return helper(root, map, sum, 0);
+        int i=helper(root, map, sum, 0);
+        return i;
     }
 
     int helper(TreeNode root, HashMap<Integer, Integer> map, int sum, int pathSum){
@@ -42,9 +43,17 @@ public class Solution {
         pathSum += root.val;
         res += map.getOrDefault(pathSum - sum, 0);
         map.put(pathSum, map.getOrDefault(pathSum, 0) + 1);
-        res = helper(root.left, map, sum, pathSum) + helper(root.right, map, sum, pathSum) + res;
+        res += helper(root.left, map, sum, pathSum) + helper(root.right, map, sum, pathSum);
         map.put(pathSum, map.get(pathSum) - 1);
         return res;
+    }
+
+    public static void main(String[] args) {
+        Solution solution=new Solution();
+        TreeNode node=new TreeNode(10);
+        node.left=new TreeNode(1);
+        node.right=new TreeNode(3);
+        solution.pathSum(node,14);
     }
 
 }
