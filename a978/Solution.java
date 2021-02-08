@@ -6,39 +6,22 @@ package a978;
  */
 public class Solution {
     public int maxTurbulenceSize(int[] A) {
-        if(A.length<=0){
-            return 0;
-        }
-        int n= A.length;
-        int[] dp=new int[n];
-        if(n==1){
-            return 1;
-        }
-        int flag=A[1]-A[0];
-        dp[0]=1;
-        dp[1]=flag==0?1:2;
-        int f;
-        int reuslt=dp[1];
-        for(int i=2;i<n;i++){
-            int k=A[i]-A[i-1];
-            if(k==0){
-                f=0;
-            }else if(k>0){
-                f=1;
+        int n=A.length;
+        int up=1,down=1;
+        int res=1;
+        for(int i=1;i<A.length;i++){
+            if(A[i]>A[i-1]){
+                up=down+1;
+                down=1;
+            }else if(A[i]<A[i-1]){
+                down=up+1;
+                up=1;
             }else {
-                f=-1;
+                up=down=1;
             }
-            if(f*flag<0){
-                dp[i]=dp[i-1]+1;
-            }else if(f==0){
-                dp[i]=1;
-            }else {
-                dp[i]=2;
-            }
-            reuslt=Math.max(dp[i],reuslt);
+            res=Math.max(res,Math.max(up,down));
         }
-        return reuslt;
-
+        return res;
     }
 
 
