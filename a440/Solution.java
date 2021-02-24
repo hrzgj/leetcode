@@ -25,4 +25,9 @@ public class Solution {
         }
         return curr;
     }
+
+    public static void main(String[] args) {
+        Solution solution=new Solution();
+        solution.findKthNumber(100,32);
+    }
 }
