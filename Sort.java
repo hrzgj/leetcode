@@ -40,20 +40,20 @@ public class Sort {
     }
 
     static class QuickSort{
-        private void quickSort(int[] array,int left,int right){
+        private void quickSort(int[] array,int left,int right) {
             if(left>=right){
                 return;
             }
-            int index=partition(array,left,right);
-            quickSort(array,left,index-1);
-            quickSort(array,index+1,right);
-        }
+            int mid=partition(array,left,right);
+            quickSort(array,left,mid-1);
+            quickSort(array,mid+1,right);
 
+        }
         private int partition(int[] array,int left,int right){
             int i=left+1,j=right;
             while (true){
-                while (i!=right&&array[i]<array[left]) i++;
-                while (j!=left&&array[j]>array[left]) j--;
+                while (i!=right && array[i]<array[left]) i++;
+                while (j!=left && array[j]>array[right]) j--;
                 if(i>=j){
                     break;
                 }
@@ -62,7 +62,6 @@ public class Sort {
             swap(array,left,j);
             return j;
         }
-
         private void swap(int[] array,int i,int j){
             int temp=array[i];
             array[i]=array[j];
@@ -70,10 +69,45 @@ public class Sort {
         }
     }
 
+    static class HeapSort{
+        private static void swap(int[] array,int i,int j){
+            int temp=array[i];
+            array[i]=array[j];
+            array[j]=temp;
+        }
+        public static int[] heapSort(int[] array){
+            int len=array.length;
+            for(int i=len/2-1;i>=0;i++){
+                heapAdjust(array,i,len);
+            }
+            for(int i=len-1;i>=0;i++){
+                swap(array,0,i);
+                heapAdjust(array,0,i);
+            }
+            return array;
+        }
+        public static void heapAdjust(int[] array,int index,int length){
+            int max=index;
+            int left=index*2;
+            int right=index*2+1;
+            if(length > left && array[left]>array[max]){
+                max=left;
+            }
+            if(length > right && array[right]>array[max]){
+                max=right;
+            }
+            if(max!=index){
+                swap(array,max,index);
+                heapAdjust(array,max,length);
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         QuickSort sort=new QuickSort();
         int[] a=new int[]{2,3,5,1,4};
-        sort.quickSort(a,0,a.length-1);
+        HeapSort.heapSort(a);
         for(int s:a){
             System.out.println(s);
         }
