@@ -14,7 +14,7 @@ public class MyQueue {
         res=new LinkedList<>();
         linkedList=new LinkedList<>();
     }
-
+    
     /** Push element x to the back of queue. */
     public void push(int x) {
         linkedList.push(x);
