@@ -77,10 +77,10 @@ public class Sort {
         }
         public static int[] heapSort(int[] array){
             int len=array.length;
-            for(int i=len/2-1;i>=0;i++){
+            for(int i=len/2-1;i>=0;i--){
                 heapAdjust(array,i,len);
             }
-            for(int i=len-1;i>=0;i++){
+            for(int i=len-1;i>=0;i--){
                 swap(array,0,i);
                 heapAdjust(array,0,i);
             }
