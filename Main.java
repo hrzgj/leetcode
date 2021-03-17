@@ -7,6 +7,62 @@ import java.util.*;
  * @date: 2021/3/13 16:09
  */
 public class Main {
+
+//    public static void main(String[] args) {
+//        Scanner scanner=new Scanner(System.in);
+//        int n=scanner.nextInt(),m=scanner.nextInt();
+//        int[] a=new int[n+1];
+//        int[] b=new int[n+1];
+//        for(int i=1;i<=n;i++){
+//            a[i]=scanner.nextInt();
+//            b[i]=scanner.nextInt();
+//        }
+//    }
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        int size=scanner.nextInt();
+        while (size-->0){
+            int n=scanner.nextInt(),m=scanner.nextInt(),k=scanner.nextInt();
+            //dp[i][j]表示前i个数组和为j的组合数
+            int[][] dp=new int[n+1][k+1];
+            for(int i=1;i<=m&&i<=k;i++){
+                dp[1][i]=1;
+            }
+            for(int i=2;i<=n;i++){
+                for(int j=i ;j<=i*m && j<=k;j++){
+                    for(int l=1;l<=m && j-l>0;l++){
+                        dp[i][j]+=dp[i-1][j-l];
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+//    public static int  back(int k,int n,int m,long res){
+//        if(n==0 && k==0){
+//            res++;
+//            if(res>1000000007) {
+//                res %= 1000000007;
+//            }
+//            return (int)res;
+//        }
+//        if(n<=0 || k<=0 ){
+//            return 0;
+//        }
+//        if(k-n*m>0){
+//            return 0;
+//        }
+//        for(int i=1;i<=m;i++){
+//            if(k-i<0){
+//                break;
+//            }
+//            res+=back(k-i,n-1,m,0);
+//        }
+//        return (int)res;
+//    }
+
+}
 //    public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
 //        int n,m;
@@ -171,5 +227,3 @@ public class Main {
 //            }
 //        }
 //    }
-
-}
