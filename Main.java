@@ -1,229 +1,266 @@
-import javax.naming.spi.ResolveResult;
-import java.math.BigInteger;
+import com.sun.org.apache.bcel.internal.generic.LNEG;
+
 import java.util.*;
 
 /**
  * @author: chenyu
  * @date: 2021/3/13 16:09
  */
+  class ListNode {
+    int val;
+    ListNode next = null;
+    public ListNode(int val) {
+      this.val = val;
+    }
+  }
+
+
+  class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+    public TreeNode(int val) {
+      this.val = val;
+    }
+  }
 public class Main {
 
-//    public static void main(String[] args) {
-//        Scanner scanner=new Scanner(System.in);
-//        int n=scanner.nextInt(),m=scanner.nextInt();
-//        int[] a=new int[n+1];
-//        int[] b=new int[n+1];
-//        for(int i=1;i<=n;i++){
-//            a[i]=scanner.nextInt();
-//            b[i]=scanner.nextInt();
-//        }
-//    }
     public static void main(String[] args) {
-        Scanner scanner=new Scanner(System.in);
-        int size=scanner.nextInt();
+        Scanner sc=new Scanner(System.in);
+        int size=sc.nextInt();
+        //price[][i][0]代表金额
+        //price[][i][1]代表金额%m,余数
+        int j=0;
+        int[][][] prices=new int[size][][];
+        int [] mNum=new int[size];
         while (size-->0){
-            int n=scanner.nextInt(),m=scanner.nextInt(),k=scanner.nextInt();
-            //dp[i][j]表示前i个数组和为j的组合数
-            int[][] dp=new int[n+1][k+1];
-            for(int i=1;i<=m&&i<=k;i++){
-                dp[1][i]=1;
+            int n=sc.nextInt();
+            int m=sc.nextInt();
+            mNum[j]=m;
+            int[][] price=new int[n][2];
+            //price[i][0]代表金额
+            //price[i][1]代表金额%m,余数
+            int index=-1;
+            while (++index<price.length){
+                price[index][0]=sc.nextInt();
+                price[index][1]=price[index][0]%m;
             }
-            for(int i=2;i<=n;i++){
-                for(int j=i ;j<=i*m && j<=k;j++){
-                    for(int l=1;l<=m && j-l>0;l++){
-                        dp[i][j]+=dp[i-1][j-l];
+            prices[j++]=price;
+        }
+
+        for ( j = 0; j < prices.length; j++) {
+            int[][] price=prices[j];
+            int m=mNum[j];
+            Arrays.sort(price, new Comparator<int[]>() {
+                @Override
+                public int compare(int[] o1, int[] o2) {
+                    if (o1[1] == o2[1]) {
+                        return o2[0] - o1[0];
+                    } else {
+                        return o1[1] - o2[1];
                     }
                 }
+            });
+            int left = 0, right = price.length - 1;
+            int res = 0;
+            while (left <= right) {
+                int leftNum = price[left][1];
+                int rightNum = price[right][1];
+                if (leftNum + rightNum == m || leftNum + rightNum == 0) {
+                    left++;
+                    right--;
+                } else if (leftNum + rightNum > m) {
+                    res += price[right][0];
+                    right--;
+                } else if (leftNum + rightNum < m) {
+                    res += price[left][0];
+                    left++;
+                }
             }
+            System.out.print(res);
             System.out.println();
+
         }
-    }
 
-//    public static int  back(int k,int n,int m,long res){
-//        if(n==0 && k==0){
-//            res++;
-//            if(res>1000000007) {
-//                res %= 1000000007;
-//            }
-//            return (int)res;
-//        }
-//        if(n<=0 || k<=0 ){
-//            return 0;
-//        }
-//        if(k-n*m>0){
-//            return 0;
-//        }
-//        for(int i=1;i<=m;i++){
-//            if(k-i<0){
-//                break;
-//            }
-//            res+=back(k-i,n-1,m,0);
-//        }
-//        return (int)res;
-//    }
 
-}
-//    public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        int n,m;
-//        n=sc.nextInt();
-//        m=sc.nextInt();
-//        int[] num=new int[n];
-//        for(int i=0;i<num.length;i++){
-//            num[i]=sc.nextInt();
-//        }
-//        Map<Integer,List<Integer>> map=new HashMap<>();
-//        while (sc.hasNext()){
-//            int i=sc.nextInt()-1,j=sc.nextInt()-1;
-//            if(map.containsKey(i)){
-//                map.get(i).add(j);
-//            }else {
-//                map.put(i,new LinkedList<Integer>(){{add(j);}});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        LinkedList<int[]> list=new LinkedList<>();
+//        int n=sc.nextInt();
+//        while (n-->0) {
+//            int size=sc.nextInt();
+//            int[] temp=new int[size];
+//            int index=0;
+//            while (index<temp.length) {
+//                int num=sc.nextInt();
+//                temp[index++]=num;
 //            }
-//            if(map.containsKey(j)){
-//                map.get(j).add(i);
-//            }else {
-//                map.put(j,new LinkedList<Integer>(){{add(i);}});
-//            }
+//            list.add(temp);
 //        }
-//        int res=1;
-//        for(int i=0;i<num.length;i++){
-//            int temp=1;
-//            LinkedList<Integer> list=new LinkedList<>();
-//            list.add(i);
-//            while (!list.isEmpty()) {
-//                int size=list.size();
-//                while (size-->0) {
-//                    int index=list.poll();
-//                    int value=num[index];
-//                    for (Integer integer : map.get(index)) {
-//                        if(num[integer]<value){
-//                            list.add(integer);
+//        int q=sc.nextInt();
+//        int[][] res=new int[q][];
+//        int p=0;
+//        while (q-->0){
+//            int arraySize=sc.nextInt();
+//            int[] index=new int[arraySize+1];
+//            res[p++]=index;
+//            int j=0;
+//            while (arraySize-->0){
+//                int num=sc.nextInt();
+//                index[j++]=num-1;
+//            }
+//            int k=sc.nextInt();
+//            index[j]=k;
+//
+//        }
+//        int index=0;
+//        while (index<res.length) {
+//            int[] nums=res[index++];
+//            int k=nums[nums.length-1];
+//            //构建小顶堆
+//            PriorityQueue<Integer> queue = new PriorityQueue<>(nums[nums.length-1], new Comparator<Integer>() {
+//                @Override
+//                public int compare(Integer o1, Integer o2) {
+//                    return o2 - o1;
+//                }
+//            });
+//            for (int i=0;i<nums.length-1;i++) {
+//                Integer integer=nums[i];
+//                int[] array = list.get(integer);
+//                for (int num : array) {
+//                    if (queue.size() < k) {
+//                        queue.add(num);
+//                    } else {
+//                        if (queue.peek() < num) {
+//                        } else {
+//                            queue.poll();
+//                            queue.add(num);
 //                        }
 //                    }
 //                }
-//                temp++;
 //            }
-//            res=Math.max(res,temp);
+//            System.out.print(queue.peek());
+//            System.out.println();
 //        }
-//        System.out.println();
-//        System.out.println(res);
-//    }
 
-//    public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        int n,m;
-//        while (sc.hasNext()) {
-//            n=sc.nextInt();
-//            m=sc.nextInt();
-//            long[] nums=new long[n];
-//            for(int i=0;i<nums.length;i++){
-//                nums[i]=sc.nextInt();
-//            }
-//            Map<Long,Integer> map=new HashMap<>();
-//            System.out.println();
-//            for(int i=0;i<m;i++){
-//                map.put(nums[i],map.getOrDefault(nums[i],0)+1);
-//            }
-//            long max=0,num=Integer.MAX_VALUE;
-//            for(Map.Entry<Long,Integer> entry:map.entrySet()){
-//                if(entry.getValue()>max){
-//                    num=entry.getKey();
-//                    max=entry.getValue();
-//                }else if(entry.getValue()==max){
-//                    num=Math.min(num,entry.getKey());
+
+
+
+
+
+
+
+
+
+
+
+//        int size=sc.nextInt();
+//        while (size-->0){
+//            int n=sc.nextInt();
+//            int[] dp=new int[n+1];
+//            for(int i=1;i<=n;i++){
+//                if(i%3==0 && i%2==0) {
+//                    dp[i] = Math.min(dp[i - 1], Math.min(dp[i / 3], dp[i / 2])) + 1;
+//                }else if(i%3==0){
+//                    dp[i]=Math.min(dp[i-1],dp[i/3])+1;
+//                }else if(i%2==0){
+//                    dp[i]=Math.min(dp[i-1],dp[i/2])+1;
+//                }else {
+//                    dp[i]=dp[i-1]+1;
 //                }
 //            }
-//            System.out.println(num);
-//            for(int i=m;i<n;i++){
-//                max=0;
-//                num=Integer.MAX_VALUE;
-//                map.put(nums[i-m], map.get(nums[i - m]) - 1);
-//                map.put(nums[i],map.getOrDefault(nums[i],0)+1);
-//                for(Map.Entry<Long,Integer> entry:map.entrySet()){
-//                    if(entry.getValue()>max){
-//                        num=entry.getKey();
-//                        max=entry.getValue();
-//                    }else if(entry.getValue()==max){
-//                        num=Math.min(num,entry.getKey());
-//                    }
-//                }
-//                System.out.println(num);
-//            }
+//            System.out.println(dp[n]);
 //        }
-//    }
-//    public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        while (sc.hasNext()) {
-//            String s=sc.nextLine();
-//            List<Long> list=new LinkedList<>();
-//            char[] ch=s.toCharArray();
-//            for(int i=0;i<ch.length;i++){
-//                if(Character.isDigit(ch[i])){
-//                    int  sign= i>0 && ch[i-1]=='-'?-1:1;
-//                    long num=0;
-//                    while (i<ch.length&&Character.isDigit(ch[i])){
-//                        num*=10;
-//                        num+=ch[i]-'0';
-//                        i++;
-//                    }
-//                    list.add(num * sign);
-//                }
-//            }
-//            Collections.sort(list);
-//            System.out.println();
-//            for(Long i:list){
-//                System.out.println(i);
-//            }
+
+
+
+//        Main main=new Main();
+//        TreeNode node=new TreeNode(1);
+//        node.left=new TreeNode(2);
+//        node.right=new TreeNode(3);
+//        TreeNode res=node;
+//        node=node.left;
+//        node.left=new TreeNode(4);
+//        node.right=new TreeNode(5);
+//        main.solve(res,new int[5]);
+    }
+    public ListNode[] solve (TreeNode root, int[] b) {
+        if(root==null){
+            return new ListNode[0];
+        }
+        ListNode[] res=new ListNode[b.length];
+        for (int i = 0; i <b.length ; i++) {
+            dfs(root,new LinkedList<>(),b[i],res,i);
+        }
+        return res;
+
+//        int m = b.length;
+//        ListNode[] result = new ListNode[m];
+//        int k = 0;
+//        List<Integer> nums = new LinkedList<>();
+//        Deque<TreeNode> deque = new LinkedList<>();
+//        deque.addLast(root);
+//        while (!deque.isEmpty()){
+//            TreeNode node = deque.pollFirst();
+//            tree.add(node.val);
+//            if (node.left != null) deque.addLast(node.left);
+//            if (node.right != null) deque.addLast(node.right);
 //        }
-//    }
-//    public static int[][] reverse(int[][] num) {
-//        int n=num.length,m=num[0].length;
-//        int[][] res=new int[m][n];
-//        int column=0,row=0;
-//        for(int i=0;i<n;i++){
-//            for(int j=0;j<m;j++){
-//                res[row][column++]=num[i][j];
-//                if(column==n){
-//                    row++;
-//                    column=0;
-//                }
+//        int n = nums.size();
+//        for (int i = 0; i < m; i++) {
+//            int index = nums.indexOf(b[i]);
+//            boolean flag = index == 0 ? true : false;
+//            ListNode head = null,node = null;
+//            while (!flag){
+//                head = new ListNode(nums.get(index));
+//                head.next = node;
+//                node = head;
+//                index = (index-1)/2;
+//                if (flag)   break;
+//                if (index == 0) flag = true;
 //            }
+//            head = new ListNode(tree.get(0));
+//            head.next = node;
+//            ans[k++] = head;
 //        }
-//        return res;
-//    }
-//
-//
-//    public static void main(String[] args) {
-//        int m,n;
-//        double sum;
-//        Scanner sc = new Scanner(System.in);
-//        while (sc.hasNext()) {
-//            n = sc.nextInt();
-//            m = sc.nextInt();
-//            int[][] num=new int[n][m];
-//            for(int i=0;i<n;i++){
-//                for(int j=0;j<m;j++){
-//                    num[i][j]=sc.nextInt();
-//                }
-//            }
-//            int[][] res=new int[m][n];
-//            int column=0,row=0;
-//            for(int i=0;i<n;i++){
-//                for(int j=0;j<m;j++){
-//                    res[row++][column]=num[i][j];
-//                    if(row==m){
-//                        column++;
-//                        row=0;
-//                    }
-//                }
-//            }
-//            System.out.println();
-//            for(int i=0;i<m;i++){
-//                for(int j=0;j<n;j++){
-//                    System.out.printf(res[i][j]+"");
-//                }
-//                System.out.println();
-//            }
-//        }
-//    }
+//        return result ;
+    }
+
+    private boolean dfs(TreeNode node,LinkedList<Integer> list,int val,ListNode[] listNodes,int i){
+        if(node.val==val){
+            list.add(node.val);
+            cloneNode(listNodes,i,list);
+            return true;
+        }
+        list.add(node.val);
+        if(dfs(node.left,list,val,listNodes,i)){
+            return true;
+        }
+        dfs(node.right,list,val,listNodes,i);
+        list.remove(list.size()-1);
+        return false;
+    }
+
+    private void cloneNode(ListNode[] listNodes,int i,LinkedList<Integer> list){
+        ListNode node=new ListNode(0);
+        ListNode head=node;
+        for(int val:list){
+            node.next=new ListNode(val);
+            node=node.next;
+        }
+        listNodes[i]=head.next;
+    }
+}
