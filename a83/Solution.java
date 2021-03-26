@@ -24,6 +24,7 @@ public class Solution {
             listNode=head;
             head=head.next;
         }
+        listNode.next=head;
         return node.next;
     }
 }
