@@ -1,5 +1,7 @@
 import a455.Solution;
 
+import java.util.Arrays;
+
 /**
  * @author: chenyu
  * @date: 2020/12/25 10:54
@@ -67,6 +69,19 @@ public class Sort {
             array[i]=array[j];
             array[j]=temp;
         }
+
+        public int search(int[] array,int target){
+            int left=0,right=array.length-1;
+            while (left<right){
+                int mid=left+(right-left)/2;
+                if(array[mid]>=target){
+                    right=mid;
+                }else {
+                    left=mid+1;
+                }
+            }
+            return left;
+        }
     }
 
     static class HeapSort{
@@ -106,11 +121,8 @@ public class Sort {
 
     public static void main(String[] args) {
         QuickSort sort=new QuickSort();
-        int[] a=new int[]{2,3,5,1,4};
-        HeapSort.heapSort(a);
-        for(int s:a){
-            System.out.println(s);
-        }
+        int[] a=new int[]{1,2,2,3,4,5,6};
+        System.out.println(sort.search(a,2));
 
     }
 }
