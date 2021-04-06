@@ -6,21 +6,18 @@ package a80;
  */
 public class Solution {
     public int removeDuplicates(int[] nums) {
-        if(nums.length<=2){
-            return nums.length;
-        }
-        int j=0;
-        int count=0;
-        for(int i=0;i<nums.length;i++) {
-            if(i>0&&nums[i]==nums[i-1]){
-                count++;
+        int index=0,left=0,right=0;
+        while(right<nums.length){
+            int num=nums[left];
+            while(right<nums.length && nums[right] ==num ){
+                right++;
             }
-            if(count==2){
-                count=0;
-                i++;
+            int size=(right-left)>=2?2:right-left;
+            while(size-->0){
+                nums[index++]=num;
             }
-            nums[j++]=nums[i];
+            left=right;
         }
-        return j;
+        return index;
     }
 }
