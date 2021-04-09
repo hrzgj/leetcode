@@ -5,34 +5,34 @@ import java.util.*;
  * @date: 2021/3/31 18:58
  */
 public class huawei {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String s=sc.nextLine();
-        s=s.replaceAll(" ","");
-        String res=s.substring(1,s.length()-1);
-        if(res.length()<=0){
-            System.out.println(0);
-            return;
-        }
-        String[] strings=res.split(",");
-        int[] nums=new int[strings.length];
-        for (int i = 0; i <nums.length ; i++) {
-            nums[i]=Integer.parseInt(strings[i]);
-        }
-        Arrays.sort(nums);
-        int result=nums.length;
-        int n=nums.length;
-        int left=0,right=0;
-        while (left<n){
-            int num=nums[left];
-            while (right<n && nums[++right]==nums[left]);
-            int size=right-left;
-            size%=num;
-            result+=num-size+1;
-            left=right;
-        }
-        System.out.println(result);
-    }
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        String s=sc.nextLine();
+//        s=s.replaceAll(" ","");
+//        String res=s.substring(1,s.length()-1);
+//        if(res.length()<=0){
+//            System.out.println(0);
+//            return;
+//        }
+//        String[] strings=res.split(",");
+//        int[] nums=new int[strings.length];
+//        for (int i = 0; i <nums.length ; i++) {
+//            nums[i]=Integer.parseInt(strings[i]);
+//        }
+//        Arrays.sort(nums);
+//        int result=nums.length;
+//        int n=nums.length;
+//        int left=0,right=0;
+//        while (left<n){
+//            int num=nums[left];
+//            while (right<n && nums[++right]==nums[left]);
+//            int size=right-left;
+//            size%=num;
+//            result+=num-size+1;
+//            left=right;
+//        }
+//        System.out.println(result);
+//    }
 //    public static void main(String[] args) {
 //        Scanner scanner=new Scanner(System.in);
 //        List<String> list=new LinkedList<>();
